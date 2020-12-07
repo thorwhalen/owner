@@ -1,5 +1,5 @@
 # owner
-Tools to prove ownerhip of content
+Tools to prove ownership of content
 
 
 To install:	```pip install owner```
