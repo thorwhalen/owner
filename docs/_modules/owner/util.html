@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>owner.util &#8212; owner 0.0.10 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for owner.util</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span>
+
+<span class="n">DFLT_OFFSET_POINTER_N_BYTES</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">DFLT_ENCODING</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+
+
+<div class="viewcode-block" id="bytes_to_sha256"><a class="viewcode-back" href="../../module_docs/owner/util.html#owner.base.bytes_to_sha256">[docs]</a><span class="k">def</span> <span class="nf">bytes_to_sha256</span><span class="p">(</span><span class="n">b</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>  <span class="c1"># todo: returns string; needs to return bytes</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute sha56 of given bytes</span>
+
+<span class="sd">    :param b: bytes to compute the sha256 of</span>
+<span class="sd">    :return: the bytes of the sha256 hash</span>
+
+<span class="sd">    &gt;&gt;&gt; bytes_to_sha256(b&#39;bob and alice&#39;)</span>
+<span class="sd">    b&#39;\x0c14\xf2\x834\xa3\xc0\x0c\xe3\xa8i9\r\xe2\xd3\x01\xb1Fj\x11U\x92j^Z\xa8\xaa\x9e\x89\xa2\xd5&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="src_to_bytes"><a class="viewcode-back" href="../../module_docs/owner/util.html#owner.base.src_to_bytes">[docs]</a><span class="k">def</span> <span class="nf">src_to_bytes</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Gets the bytes of src.</span>
+<span class="sd">    If src is a string, is assumed to be a filepath.</span>
+<span class="sd">    If not, asserts src is of the bytes type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+        <span class="c1"># todo: do it streaming and incremental to be able to handle big files with little RAM footprint</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">),</span> <span class="s2">&quot;src needs to be bytes&quot;</span>
+    <span class="k">return</span> <span class="n">src</span></div>
+
+
+<div class="viewcode-block" id="int_to_bytes"><a class="viewcode-back" href="../../module_docs/owner/util.html#owner.base.int_to_bytes">[docs]</a><span class="k">def</span> <span class="nf">int_to_bytes</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n_bytes</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param i:</span>
+<span class="sd">    :param n_bytes:</span>
+<span class="sd">    :param byteorder:</span>
+<span class="sd">    :return:</span>
+
+<span class="sd">    &gt;&gt;&gt; an_integer = 123456</span>
+<span class="sd">    &gt;&gt;&gt; b = int_to_bytes(an_integer)</span>
+<span class="sd">    &gt;&gt;&gt; assert isinstance(b, bytes)</span>
+<span class="sd">    &gt;&gt;&gt; back_to_int = bytes_to_int(b)</span>
+<span class="sd">    &gt;&gt;&gt; assert back_to_int == an_integer</span>
+
+<span class="sd">    &gt;&gt;&gt; int_to_bytes(7, n_bytes=3)</span>
+<span class="sd">    b&#39;\x00\x00\x07&#39;</span>
+<span class="sd">    &gt;&gt;&gt; int_to_bytes(255, n_bytes=3)</span>
+<span class="sd">    b&#39;\x00\x00\xff&#39;</span>
+<span class="sd">    &gt;&gt;&gt; int_to_bytes(256, n_bytes=3)</span>
+<span class="sd">    b&#39;\x00\x01\x00&#39;</span>
+<span class="sd">    &gt;&gt;&gt; int_to_bytes(256 + 7, n_bytes=3)</span>
+<span class="sd">    b&#39;\x00\x01\x07&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">n_bytes</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;too big for </span><span class="si">{</span><span class="n">n_bytes</span><span class="si">}</span><span class="s2"> bytes&quot;</span>
+    <span class="k">return</span> <span class="n">i</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="n">n_bytes</span><span class="p">,</span> <span class="n">byteorder</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bytes_to_int"><a class="viewcode-back" href="../../module_docs/owner/util.html#owner.base.bytes_to_int">[docs]</a><span class="k">def</span> <span class="nf">bytes_to_int</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param b:</span>
+<span class="sd">    :param byteorder:</span>
+<span class="sd">    :return:</span>
+
+<span class="sd">    &gt;&gt;&gt; bytes_to_int(int_to_bytes(123456)) == 123456</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; bytes_to_int(b&#39;\x00\x00\x07&#39;)</span>
+<span class="sd">    7</span>
+<span class="sd">    &gt;&gt;&gt; bytes_to_int(b&#39;\x00\x01\x00&#39;)</span>
+<span class="sd">    256</span>
+<span class="sd">    &gt;&gt;&gt; assert bytes_to_int(b&#39;\x00\x01\x07&#39;) == 256 + 7</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">byteorder</span><span class="p">)</span></div>
+
+
+<span class="k">assert</span> <span class="n">bytes_to_int</span><span class="p">(</span><span class="n">int_to_bytes</span><span class="p">(</span><span class="mi">123456</span><span class="p">))</span> <span class="o">==</span> <span class="mi">123456</span>
+
+
+<div class="viewcode-block" id="sha256_and_extras_header"><a class="viewcode-back" href="../../module_docs/owner/util.html#owner.base.sha256_and_extras_header">[docs]</a><span class="k">def</span> <span class="nf">sha256_and_extras_header</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">extra_info</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;computes sha256 hash of content and contatenation content_hash + extra_info</span>
+
+<span class="sd">    &gt;&gt;&gt; sha256_and_extras_header(b&#39;bob and alice&#39;, &#39;extra info&#39;.encode())</span>
+<span class="sd">    b&#39;\x0c14\xf2\x834\xa3\xc0\x0c\xe3\xa8i9\r\xe2\xd3\x01\xb1Fj\x11U\x92j^Z\xa8\xaa\x9e\x89\xa2\xd5extra info&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extra_info</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">),</span> \
+        <span class="s2">&quot;extra_info needs to be in bytes. If you specified string s, try entering s.encode() instead.&quot;</span>
+    <span class="n">content_hash</span> <span class="o">=</span> <span class="n">bytes_to_sha256</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">content_hash</span> <span class="o">+</span> <span class="n">extra_info</span></div>
+
+
+<div class="viewcode-block" id="decode_with"><a class="viewcode-back" href="../../module_docs/owner/util.html#owner.base.decode_with">[docs]</a><span class="k">def</span> <span class="nf">decode_with</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">decoder</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Decode ``x`` with specified decoder</span>
+
+<span class="sd">    :param x: Input to decode</span>
+<span class="sd">    :param decoder: How to decode (if at all). Could be:</span>
+<span class="sd">        bool: If ``False``, leaves ``x`` as is, if ``True`` uses default `bytes.decode`</span>
+<span class="sd">        str: Taken to be the ``encoding`` param of ``bytes.decode``</span>
+<span class="sd">        callable: Calls ``decoder(x)``</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">decoder</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">decoder</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decoder</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">decoder</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decoder</span><span class="p">,</span> <span class="n">Callable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">decoder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">owner</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/owner.html">owner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/owner/base.html">owner.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/owner/util.html">owner.util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

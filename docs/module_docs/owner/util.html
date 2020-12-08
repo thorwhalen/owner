@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>owner.util &#8212; owner 0.0.10 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="owner.base" href="base.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-owner.util">
+<span id="owner-util"></span><h1>owner.util<a class="headerlink" href="#module-owner.util" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="owner.util.bytes_to_int">
+<code class="sig-prename descclassname">owner.util.</code><code class="sig-name descname">bytes_to_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">byteorder</span><span class="o">=</span><span class="default_value">'big'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/owner/util.html#bytes_to_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#owner.util.bytes_to_int" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>b</strong> – </p></li>
+<li><p><strong>byteorder</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bytes_to_int</span><span class="p">(</span><span class="n">int_to_bytes</span><span class="p">(</span><span class="mi">123456</span><span class="p">))</span> <span class="o">==</span> <span class="mi">123456</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bytes_to_int</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\x00\x07</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bytes_to_int</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\x01\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">256</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">bytes_to_int</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\x01\x07</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">256</span> <span class="o">+</span> <span class="mi">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="owner.util.bytes_to_sha256">
+<code class="sig-prename descclassname">owner.util.</code><code class="sig-name descname">bytes_to_sha256</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">bytes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/owner/util.html#bytes_to_sha256"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#owner.util.bytes_to_sha256" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute sha56 of given bytes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>b</strong> – bytes to compute the sha256 of</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the bytes of the sha256 hash</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bytes_to_sha256</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;bob and alice&#39;</span><span class="p">)</span>
+<span class="go">b&#39;\x0c14\xf2\x834\xa3\xc0\x0c\xe3\xa8i9\r\xe2\xd3\x01\xb1Fj\x11U\x92j^Z\xa8\xaa\x9e\x89\xa2\xd5&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="owner.util.decode_with">
+<code class="sig-prename descclassname">owner.util.</code><code class="sig-name descname">decode_with</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">decoder</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>str<span class="p">, </span>bool<span class="p">, </span>Callable<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/owner/util.html#decode_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#owner.util.decode_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode <code class="docutils literal notranslate"><span class="pre">x</span></code> with specified decoder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Input to decode</p></li>
+<li><p><strong>decoder</strong> – How to decode (if at all). Could be:
+bool: If <code class="docutils literal notranslate"><span class="pre">False</span></code>, leaves <code class="docutils literal notranslate"><span class="pre">x</span></code> as is, if <code class="docutils literal notranslate"><span class="pre">True</span></code> uses default <cite>bytes.decode</cite>
+str: Taken to be the <code class="docutils literal notranslate"><span class="pre">encoding</span></code> param of <code class="docutils literal notranslate"><span class="pre">bytes.decode</span></code>
+callable: Calls <code class="docutils literal notranslate"><span class="pre">decoder(x)</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="owner.util.int_to_bytes">
+<code class="sig-prename descclassname">owner.util.</code><code class="sig-name descname">int_to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">n_bytes</span><span class="o">=</span><span class="default_value">64</span></em>, <em class="sig-param"><span class="n">byteorder</span><span class="o">=</span><span class="default_value">'big'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/owner/util.html#int_to_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#owner.util.int_to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – </p></li>
+<li><p><strong>n_bytes</strong> – </p></li>
+<li><p><strong>byteorder</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">an_integer</span> <span class="o">=</span> <span class="mi">123456</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">int_to_bytes</span><span class="p">(</span><span class="n">an_integer</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">back_to_int</span> <span class="o">=</span> <span class="n">bytes_to_int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">back_to_int</span> <span class="o">==</span> <span class="n">an_integer</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">int_to_bytes</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">n_bytes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">b&#39;\x00\x00\x07&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_to_bytes</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="n">n_bytes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">b&#39;\x00\x00\xff&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_to_bytes</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">n_bytes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">b&#39;\x00\x01\x00&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_to_bytes</span><span class="p">(</span><span class="mi">256</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span> <span class="n">n_bytes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">b&#39;\x00\x01\x07&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="owner.util.sha256_and_extras_header">
+<code class="sig-prename descclassname">owner.util.</code><code class="sig-name descname">sha256_and_extras_header</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">content</span></em>, <em class="sig-param"><span class="n">extra_info</span><span class="p">:</span> <span class="n">bytes</span> <span class="o">=</span> <span class="default_value">b''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/owner/util.html#sha256_and_extras_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#owner.util.sha256_and_extras_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes sha256 hash of content and contatenation content_hash + extra_info</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sha256_and_extras_header</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;bob and alice&#39;</span><span class="p">,</span> <span class="s1">&#39;extra info&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="go">b&#39;\x0c14\xf2\x834\xa3\xc0\x0c\xe3\xa8i9\r\xe2\xd3\x01\xb1Fj\x11U\x92j^Z\xa8\xaa\x9e\x89\xa2\xd5extra info&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="owner.util.src_to_bytes">
+<code class="sig-prename descclassname">owner.util.</code><code class="sig-name descname">src_to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/owner/util.html#src_to_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#owner.util.src_to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the bytes of src.
+If src is a string, is assumed to be a filepath.
+If not, asserts src is of the bytes type.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">owner</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../owner.html">owner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">owner.base</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">owner.util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="base.html" title="previous chapter">owner.base</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/module_docs/owner/util.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
