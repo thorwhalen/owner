@@ -16,11 +16,13 @@ class HeadWeaver:
     The format is:
 
     ::
+
         <header><content>
 
     where
 
     ::
+
         <header> :=  <content-offset><content-hash><extra-info>
 
     More info:
