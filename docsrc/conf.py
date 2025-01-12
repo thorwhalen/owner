@@ -16,25 +16,21 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
-from configparser import ConfigParser
+from epythet.config_parser import parse_config
 from pathlib import Path
 
-config_file = Path(__file__).absolute().parent.parent / 'setup.cfg'  # same folder as setup.py
-config = ConfigParser()
-config.read_file(open(config_file, 'r'))
+project, copyright, author, release, display_name = parse_config(
+    Path(__file__).absolute().parent.parent / 'setup.cfg'
+)
 
-project = config['metadata']['name']
-copyright = config['metadata'].get('copyright', '')
-author = config['metadata'].get('author', '')
-
-# The full version, including alpha/beta/rc tags
-release = config['metadata'].get('version', '')
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx_toggleprompt',
+    'sphinx_copybutton',
     'sphinx.ext.autodoc',  # Include documentation from docstrings
     'sphinx.ext.doctest',  # Test snippets in the documentation
     'sphinx.ext.githubpages',  # This extension creates .nojekyll file
@@ -42,7 +38,7 @@ extensions = [
     'sphinx.ext.napoleon',  # Support for NumPy and Google style docstrings
     'sphinx.ext.todo',  # Support for todo items
     'sphinx.ext.viewcode',  # Add links to highlighted source code
-    'recommonmark',  # Parse .md files
+    'myst_parser',  # Parse .md files
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -58,9 +54,29 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+
+# -- Options for Markdown support -------------------------------------------
+# TODO: fix md support so that it doesn't interfere with rst docs
+# import commonmark
+#
+#
+# def docstring(app, what, name, obj, options, lines):
+#     md = '\n'.join(lines)
+#     ast = commonmark.Parser().parse(md)
+#     rst = commonmark.ReStructuredTextRenderer().render(ast)
+#     lines.clear()
+#     lines += rst.splitlines()
+#
+#
+# def setup(app):
+#     app.connect('autodoc-process-docstring', docstring)
+
+
+toggleprompt_offset_right = 30
