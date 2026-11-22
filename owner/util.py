@@ -1,3 +1,5 @@
+"""Utilities for owner: hashing and header helpers."""
+
 import hashlib
 import os
 from typing import Union, Callable

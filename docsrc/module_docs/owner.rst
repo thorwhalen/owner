@@ -1,4 +1,0 @@
-owner
-=====
-.. automodule:: owner
-   :members:
