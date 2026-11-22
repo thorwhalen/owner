@@ -1,3 +1,5 @@
+"""Base ``Owner`` machinery: wrap a store so that values are written with owner-checked headers."""
+
 from collections import namedtuple
 from typing import Union, Callable
 
