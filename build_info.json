@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-11-22T20:09:26Z",
+  "package": {
+    "name": "owner",
+    "version": "0.0.10",
+    "display_name": "owner",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "875a682895ba6eb69c371e37c8ffdc40471f3bf5",
+    "short_commit": "875a682",
+    "branch": "master",
+    "tags": [],
+    "dirty": false,
+    "remote_url": "https://github.com/thorwhalen/owner",
+    "commit_url": "https://github.com/thorwhalen/owner/commit/875a682895ba6eb69c371e37c8ffdc40471f3bf5",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "thorwhalen/owner",
+    "sha": "875a682895ba6eb69c371e37c8ffdc40471f3bf5",
+    "sha_in_history": true,
+    "ref": "refs/heads/master",
+    "ref_name": "master",
+    "run_id": "45064701193",
+    "run_url": "https://github.com/thorwhalen/owner/actions/runs/45064701193",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.23",
+    "sphinx": "9.1.1",
+    "docutils": "0.22.4",
+    "python": "3.12.16"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "pydata_sphinx_theme",
+    "accent": "#923144",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 3,
+    "objects_documented": 16
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.0.10",
+    "relation": "same",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/thorwhalen/owner && cd owner\ngit checkout 875a682895ba6eb69c371e37c8ffdc40471f3bf5\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": true,
+    "notes": []
+  }
+}

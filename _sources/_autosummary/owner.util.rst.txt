@@ -1,0 +1,17 @@
+owner.util
+==========
+
+.. automodule:: owner.util
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      bytes_to_int
+      bytes_to_sha256
+      decode_with
+      int_to_bytes
+      sha256_and_extras_header
+      src_to_bytes
+   

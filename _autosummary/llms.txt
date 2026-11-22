@@ -1,0 +1,14 @@
+# owner
+
+> Tools to prove ownership of content
+
+
+## Pages in this subsection
+
+- [owner](owner.html.md): Tools to prove ownership of content
+- [owner.base](owner.base.html.md): Base &#96;Owner&#96; machinery: wrap a store so that values are written with owner-checked headers.
+- [owner.util](owner.util.html.md): Utilities for owner: hashing and header helpers.
+
+## Optional
+
+- [Top-level llms.txt](../llms.txt): Complete documentation index.

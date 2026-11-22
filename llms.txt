@@ -1,0 +1,21 @@
+# owner
+
+> Tools to prove ownership of content
+
+
+## Pages
+
+- [owner](index.html.md): Tools to prove ownership of content
+- [API reference](api.html.md): | &#96;owner&#96;   | Tools to prove ownership of content   |
+- [owner](_autosummary/owner.html.md): Tools to prove ownership of content
+- [owner.base](_autosummary/owner.base.html.md): Base &#96;Owner&#96; machinery: wrap a store so that values are written with owner-checked headers.
+- [owner.util](_autosummary/owner.util.html.md): Utilities for owner: hashing and header helpers.
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-11-22 20:09 UTC&#42;&#42; from commit &lt;a href="https://github.com/tho...
+
+## Optional
+
+- [owner.md](owner.md): Complete documentation in a single file.
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)
